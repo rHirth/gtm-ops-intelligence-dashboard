@@ -1,9 +1,19 @@
 """
 Generate a synthetic global account dimension table for a GTM / RevOps portfolio project.
 
-This script creates 2,250 synthetic accounts with controlled global distribution,
-segment logic, territory assignment, owner assignment, account fit scoring, and
-root-cause-based data-quality issues.
+This linked version assigns account owner_rep_id values from dim_sales_reps.csv
+instead of using an embedded territory-to-rep dictionary. That makes account owner
+assignments behave like a real foreign-key-style relationship:
+
+    dim_accounts.owner_rep_id -> dim_sales_reps.rep_id
+
+Intentional account data-quality issues are preserved. Accounts that cannot have a
+valid current owner because of missing segmentation, missing country, or inactive
+owner cleanup keep owner_rep_id blank and use account_issue_type / account_dq_root_cause
+to explain the root cause.
+
+Inputs:
+    data/processed/dim_sales_reps.csv
 
 Output:
     data/processed/dim_accounts.csv
@@ -25,6 +35,14 @@ import pandas as pd
 
 N_ACCOUNTS = 2250
 SEED = 42
+
+SALES_REPS_INPUT_CANDIDATES = [
+    Path("data/processed/dim_sales_reps.csv"),
+    Path("data/raw/dim_sales_reps.csv"),
+    Path("dim_sales_reps.csv"),
+]
+
+OUTPUT_FILE = Path("data/processed/dim_accounts.csv")
 
 REGION_COUNTS = {
     "AMER": 1125,
@@ -57,7 +75,6 @@ DOMAIN_PROBLEM_COUNTS = {
     "ambiguous_global_domain": 25,
     "suspicious_domain": 10,
 }
-
 
 COUNTRY_BY_REGION = {
     "AMER": {
@@ -187,21 +204,15 @@ NAME_NOUNS = [
     "Solutions", "Group", "Labs", "Technologies", "Industries",
 ]
 
-REPS_BY_TERRITORY = {
-    "AMER_ENT": [f"REP_AMER_ENT_{i:02d}" for i in range(1, 9)],
-    "AMER_MM": [f"REP_AMER_MM_{i:02d}" for i in range(1, 9)],
-    "AMER_COMM": [f"REP_AMER_COMM_{i:02d}" for i in range(1, 9)],
-    "LATAM": [f"REP_LATAM_{i:02d}" for i in range(1, 4)],
-    "UKI": [f"REP_UKI_{i:02d}" for i in range(1, 4)],
-    "DACH": [f"REP_DACH_{i:02d}" for i in range(1, 4)],
-    "FR_BENELUX": [f"REP_FRBNLX_{i:02d}" for i in range(1, 4)],
-    "NORDICS": [f"REP_NORDICS_{i:02d}" for i in range(1, 3)],
-    "SOUTHERN_EUROPE": [f"REP_SEU_{i:02d}" for i in range(1, 3)],
-    "MEA": [f"REP_MEA_{i:02d}" for i in range(1, 3)],
-    "INDIA": [f"REP_INDIA_{i:02d}" for i in range(1, 4)],
-    "JAPAN_KOREA": [f"REP_JPKR_{i:02d}" for i in range(1, 4)],
-    "ANZ": [f"REP_ANZ_{i:02d}" for i in range(1, 3)],
-    "SEA": [f"REP_SEA_{i:02d}" for i in range(1, 3)],
+US_SEGMENT_TERRITORIES = {"AMER_ENT", "AMER_MM", "AMER_COMM"}
+SELLER_ROLES = {"Account Executive", "Enterprise Account Executive"}
+
+REQUIRED_SALES_REP_COLUMNS = {
+    "rep_id",
+    "region",
+    "territory_id",
+    "role",
+    "active_flag",
 }
 
 
@@ -239,6 +250,84 @@ def random_dates(
     days_between = (end - start).days
     random_days = rng.integers(0, days_between + 1, size=n)
     return [start + pd.Timedelta(days=int(day)) for day in random_days]
+
+
+# -----------------------------------------------------------------------------
+# Sales-rep foreign-key helpers
+# -----------------------------------------------------------------------------
+
+
+def load_sales_reps() -> pd.DataFrame:
+    """Load dim_sales_reps.csv from the project data folders."""
+    for path in SALES_REPS_INPUT_CANDIDATES:
+        if path.exists():
+            reps = pd.read_csv(path)
+            missing = REQUIRED_SALES_REP_COLUMNS - set(reps.columns)
+            if missing:
+                raise ValueError(
+                    f"Sales reps file {path} is missing required columns: {sorted(missing)}"
+                )
+            print(f"Loaded sales reps from: {path}")
+            return reps
+
+    searched = ", ".join(str(path) for path in SALES_REPS_INPUT_CANDIDATES)
+    raise FileNotFoundError(
+        "Could not find dim_sales_reps.csv. Searched: " + searched
+    )
+
+
+def eligible_account_owners(sales_reps: pd.DataFrame) -> pd.DataFrame:
+    """Return active quota-carrying reps eligible to own accounts."""
+    owners = sales_reps[
+        sales_reps["role"].isin(SELLER_ROLES)
+        & (sales_reps["active_flag"] == 1)
+        & sales_reps["territory_id"].notna()
+        & sales_reps["rep_id"].notna()
+    ].copy()
+
+    if owners.empty:
+        raise ValueError("No active seller reps found in dim_sales_reps.csv.")
+
+    return owners
+
+
+def choose_owner_rep_id(
+    territory_id: str,
+    segment: str,
+    account_owners: pd.DataFrame,
+    rng: np.random.Generator,
+) -> str:
+    """
+    Choose an account owner from dim_sales_reps.
+
+    Business rule:
+    - US segment territories use Account Executives only because the territory
+      determines Enterprise / Mid-Market / Commercial coverage.
+    - LATAM, EMEA, and APJ Enterprise accounts prefer Enterprise AEs.
+    - LATAM, EMEA, and APJ Mid-Market / Commercial accounts prefer AEs.
+    """
+    territory_reps = account_owners[account_owners["territory_id"] == territory_id]
+
+    if territory_reps.empty:
+        raise ValueError(f"No active seller reps found for territory_id: {territory_id}")
+
+    if territory_id in US_SEGMENT_TERRITORIES:
+        candidates = territory_reps[territory_reps["role"] == "Account Executive"]
+    elif segment == "Enterprise":
+        candidates = territory_reps[territory_reps["role"] == "Enterprise Account Executive"]
+        if candidates.empty:
+            candidates = territory_reps[territory_reps["role"] == "Account Executive"]
+    else:
+        candidates = territory_reps[territory_reps["role"] == "Account Executive"]
+        if candidates.empty:
+            candidates = territory_reps[territory_reps["role"] == "Enterprise Account Executive"]
+
+    if candidates.empty:
+        raise ValueError(
+            f"No eligible owner candidates found for territory={territory_id}, segment={segment}"
+        )
+
+    return str(rng.choice(candidates["rep_id"].to_numpy()))
 
 
 # -----------------------------------------------------------------------------
@@ -462,8 +551,8 @@ def calculate_data_quality_score(row: pd.Series) -> int:
     if pd.notna(row["territory_id"]):
         score += 20
 
-    # Active owner assignment: max 20
-    if pd.notna(row["owner_rep_id"]) and row["owner_rep_id"] != "INACTIVE_REP":
+    # Active current owner assignment: max 20
+    if pd.notna(row["owner_rep_id"]):
         score += 20
 
     # Firmographic completeness: max 25
@@ -499,9 +588,9 @@ def inject_account_dq_issues(
     """
     Inject controlled, root-cause-based data-quality issues.
 
-    The goal is to create realistic issue clusters rather than isolated random
-    nulls. This supports later dashboard analysis around routing failure,
-    territory assignment, account matching, and data remediation.
+    owner_rep_id remains a foreign-key-compatible field: every non-null value
+    should exist in dim_sales_reps.rep_id. Accounts with no valid current owner
+    have owner_rep_id left blank and the root cause stored in account_dq_root_cause.
     """
     accounts = accounts.copy()
 
@@ -588,7 +677,7 @@ def inject_account_dq_issues(
 
     used_idx = used_idx.union(set(domain_issue_idx))
 
-    # 4. Accounts with territory present but inactive owner assignment.
+    # 4. Accounts where a prior owner is no longer active and cleanup is needed.
     remaining_pool = accounts[~accounts.index.isin(used_idx)].index.to_numpy()
     inactive_owner_idx = rng.choice(
         remaining_pool,
@@ -600,7 +689,7 @@ def inject_account_dq_issues(
     accounts.loc[inactive_owner_idx, "account_dq_root_cause"] = (
         "assigned_owner_inactive_after_territory_assignment"
     )
-    accounts.loc[inactive_owner_idx, "owner_rep_id"] = "INACTIVE_REP"
+    accounts.loc[inactive_owner_idx, "owner_rep_id"] = pd.NA
 
     return accounts
 
@@ -613,6 +702,9 @@ def inject_account_dq_issues(
 def build_accounts(seed: int = SEED) -> pd.DataFrame:
     """Build the full synthetic account dimension table."""
     rng = np.random.default_rng(seed)
+
+    sales_reps = load_sales_reps()
+    account_owners = eligible_account_owners(sales_reps)
 
     account_ids = [f"ACC_{i:06d}" for i in range(1, N_ACCOUNTS + 1)]
     regions = make_exact_list(REGION_COUNTS, rng)
@@ -656,8 +748,8 @@ def build_accounts(seed: int = SEED) -> pd.DataFrame:
         for region, subregion, segment in zip(regions, subregions, segments)
     ]
     owner_rep_ids = [
-        rng.choice(REPS_BY_TERRITORY[territory])
-        for territory in territory_ids
+        choose_owner_rep_id(territory, segment, account_owners, rng)
+        for territory, segment in zip(territory_ids, segments)
     ]
 
     account_fit_scores = [
@@ -696,7 +788,6 @@ def build_accounts(seed: int = SEED) -> pd.DataFrame:
     accounts["estimated_employee_count"] = accounts["estimated_employee_count"].astype("Int64")
     accounts["created_date"] = pd.to_datetime(accounts["created_date"]).dt.date
 
-    # Keep columns in a business-readable order.
     column_order = [
         "account_id",
         "account_name",
@@ -731,8 +822,52 @@ def build_accounts(seed: int = SEED) -> pd.DataFrame:
 # -----------------------------------------------------------------------------
 
 
+def validate_account_owner_foreign_keys(accounts: pd.DataFrame, sales_reps: pd.DataFrame) -> None:
+    """Validate dim_accounts.owner_rep_id against dim_sales_reps.rep_id."""
+    owner_ids = set(accounts["owner_rep_id"].dropna().astype(str).unique())
+    rep_ids = set(sales_reps["rep_id"].astype(str).unique())
+    missing_ids = sorted(owner_ids - rep_ids)
+
+    if missing_ids:
+        raise ValueError(
+            "owner_rep_id values missing from dim_sales_reps.rep_id: "
+            f"{missing_ids[:20]}"
+        )
+
+    owner_rows = accounts[accounts["owner_rep_id"].notna()].merge(
+        sales_reps[["rep_id", "territory_id", "role", "active_flag"]],
+        left_on="owner_rep_id",
+        right_on="rep_id",
+        how="left",
+        suffixes=("_account", "_rep"),
+    )
+
+    non_seller_owners = owner_rows[~owner_rows["role"].isin(SELLER_ROLES)]
+    if not non_seller_owners.empty:
+        bad_roles = sorted(non_seller_owners["role"].dropna().unique().tolist())
+        raise ValueError(f"Accounts assigned to non-seller roles: {bad_roles}")
+
+    inactive_owners = owner_rows[owner_rows["active_flag"] != 1]
+    if not inactive_owners.empty:
+        raise ValueError("Accounts assigned to inactive reps in dim_sales_reps.")
+
+    territory_mismatch = owner_rows[
+        owner_rows["territory_id_account"] != owner_rows["territory_id_rep"]
+    ]
+    if not territory_mismatch.empty:
+        preview = territory_mismatch[[
+            "account_id", "territory_id_account", "owner_rep_id", "territory_id_rep"
+        ]].head(10)
+        raise ValueError(
+            "Account owner territory mismatches found:\n" + preview.to_string(index=False)
+        )
+
+
 def validate_accounts(accounts: pd.DataFrame) -> None:
     """Print basic validation checks for the generated account table."""
+    sales_reps = load_sales_reps()
+    validate_account_owner_foreign_keys(accounts, sales_reps)
+
     print("Total accounts:", len(accounts))
 
     print("\nRegion counts:")
@@ -774,17 +909,16 @@ def validate_accounts(accounts: pd.DataFrame) -> None:
     print("\nDuplicate non-null domain count:")
     print(accounts["account_domain"].dropna().duplicated().sum())
 
+    print("\nAccount-owner FK validation:")
+    print("Passed: every non-null owner_rep_id exists in dim_sales_reps and matches territory.")
+
 
 def save_accounts(accounts: pd.DataFrame) -> Path:
     """Save accounts to the processed data folder."""
-    output_path = Path("data/processed")
-    output_path.mkdir(parents=True, exist_ok=True)
-
-    output_file = output_path / "dim_accounts.csv"
-    accounts.to_csv(output_file, index=False)
-    print(f"\nSaved accounts to: {output_file}")
-
-    return output_file
+    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    accounts.to_csv(OUTPUT_FILE, index=False)
+    print(f"\nSaved accounts to: {OUTPUT_FILE}")
+    return OUTPUT_FILE
 
 
 if __name__ == "__main__":
