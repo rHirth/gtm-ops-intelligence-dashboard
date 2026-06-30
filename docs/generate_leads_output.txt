@@ -1,0 +1,148 @@
+Loaded accounts from: dim_accounts.csv
+Loaded sales reps from: dim_sales_reps.csv
+Loaded accounts from: dim_accounts.csv
+Loaded sales reps from: dim_sales_reps.csv
+Validation passed: fact_leads is valid.
+
+Total leads: 12000
+
+Lead source counts:
+lead_source
+Free Trial / Free Sample    3000
+Content Download            2400
+Demo Request                1800
+Webinar                     1800
+Paid Search                 1200
+Partner Referral             840
+Event Scan                   600
+Other / Unknown              360
+
+Region counts:
+region
+AMER    6000
+APJ     2400
+EMEA    3600
+
+Account match status counts:
+account_match_status
+existing_account_match             4800
+new_account_candidate              3000
+partial_fuzzy_match                1440
+no_account_match                   1200
+personal_invalid_no_match          1200
+duplicate_existing_lead_contact     360
+
+Email type counts:
+email_type
+business_known_domain           5500
+business_unknown_domain         2817
+personal_email                  1503
+disposable_suspicious_domain     734
+invalid_fake_email               645
+duplicate_email                  424
+education_noncommercial          377
+
+Form completeness counts:
+form_completeness
+email_only                  4488
+email_name_company_title    2384
+email_name                  2268
+email_company               1709
+full_profile                1151
+
+Enrichment status counts:
+enrichment_status
+partial_low_confidence       3543
+domain_inferred              3483
+company_inferred_only        1631
+failed_personal_email        1087
+complete                      804
+duplicate_suppressed          688
+failed_invalid_fake_email     645
+country_inferred_only         119
+
+Routing status counts:
+routing_status
+routed_after_enrichment         7425
+routed_successfully             1522
+manual_review                   1134
+suppressed_duplicate_invalid     688
+failed_routing                   647
+fallback_queue                   584
+
+Routing model version by routing status:
+routing_status         failed_routing  fallback_queue  manual_review  routed_after_enrichment  routed_successfully  suppressed_duplicate_invalid
+routing_model_version                                                                                                                           
+v1_baseline                       299             265            582                     2145                  415                           214
+v2_domain_inference               196             191            321                     2591                  532                           248
+v3_logic_fix                      152             128            231                     2689                  575                           226
+
+Speed-to-lead bucket counts:
+speed_to_lead_bucket
+No touch         3657
+Same day         2609
+1-4 hours        1805
+16-60 minutes    1630
+0-15 minutes     1136
+1-3 days         1088
+4+ days            75
+
+Conversion outcome counts:
+conversion_outcome
+not_converted                            9200
+converted_contact_account_opportunity    1300
+converted_contact_account                1030
+converted_contact_only                    470
+
+Funnel counts:
+total_leads                 12000
+mqls                         7967
+assigned                    10665
+first_touch_completed        8343
+converted_to_contact         2800
+converted_to_account         2330
+converted_to_opportunity     1300
+
+MQL-to-opportunity conversion rate by speed bucket:
+                      leads  mqls  opportunities  opp_rate
+speed_to_lead_bucket                                      
+0-15 minutes           1136   983            508     0.447
+1-3 days               1088   770              0     0.000
+1-4 hours              1805  1451            175     0.097
+16-60 minutes          1630  1436            567     0.348
+4+ days                  75    45              0     0.000
+No touch               3657  1412              0     0.000
+Same day               2609  1870             50     0.019
+
+Routing success rate by email type:
+                              leads  routed_success
+email_type                                         
+business_known_domain          5500           0.880
+business_unknown_domain        2817           0.804
+disposable_suspicious_domain    734           0.730
+duplicate_email                 424           0.000
+education_noncommercial         377           0.544
+invalid_fake_email              645           0.391
+personal_email                 1503           0.566
+
+Data quality tier counts:
+data_quality_tier
+partial      3790
+good         3482
+poor         3455
+excellent    1273
+
+Preview:
+    lead_id created_at created_month created_quarter routing_model_version              lead_source region     subregion       country    segment           industry                                       email                  email_domain              email_type        form_completeness  full_name_provided  company_name_provided  job_title_provided  country_provided            inferred_company inferred_country inferred_region            account_match_status matched_account_id possible_account_id created_account_id created_contact_id          job_function               seniority  lead_score      lead_score_band  mql_flag      enrichment_status  enrichment_confidence_score  missing_required_fields_count               routing_status          routing_failure_reason        assignment_method      assigned_rep_id assigned_territory_id  minutes_to_assignment      first_touch_at  minutes_to_first_touch speed_to_lead_bucket  first_touch_completed  converted_to_contact  converted_to_account  converted_to_opportunity created_opportunity_id                    conversion_outcome   non_conversion_reason  data_quality_score data_quality_tier
+LEAD_000001 2024-01-26       2024-01         2024-Q1           v1_baseline         Content Download   AMER North America United States Enterprise          Education      allison.hill@stonebridgesystems681.com     stonebridgesystems681.com   business_known_domain            email_company                   0                      1                   0                 0 Stonebridge Systems 681 LLC    United States            AMER             partial_fuzzy_match               <NA>          ACC_001580               <NA>               <NA>             Marketing  Individual Contributor          51   50-69 Moderate fit         1 partial_low_confidence                        0.600                              2               fallback_queue       conflicting_account_match           fallback_queue  REP_SDR_AMER_ENT_01              AMER_ENT                    502                 NaT                    <NA>             No touch                      0                     0                     0                         0                   <NA>                         not_converted             routed_late                  62           partial
+LEAD_000002 2024-06-25       2024-06         2024-Q2           v1_baseline             Demo Request   AMER North America United States Mid-Market Financial Services                   noah.rhodes@miller738.com                 miller738.com business_unknown_domain email_name_company_title                   1                      1                   1                 0                      Miller    United States            AMER                no_account_match               <NA>                <NA>               <NA>         CON_002492            Operations                Director          80     70-84 Strong fit         1 partial_low_confidence                        0.535                              0      routed_after_enrichment                            <NA> domain_country_inference       REP_AMER_MM_08               AMER_MM                      7 2024-06-25 03:25:00                     205            1-4 hours                      1                     1                     0                         0                   <NA>                converted_contact_only                    <NA>                  67           partial
+LEAD_000003 2024-06-11       2024-06         2024-Q2           v1_baseline Free Trial / Free Sample   AMER North America United States Mid-Market          Education    jonathan.johnson@pinnaclesecurity539.com       pinnaclesecurity539.com   business_known_domain               email_name                   1                      0                   0                 0            Pinnaclesecurity    United States            AMER          existing_account_match         ACC_002093          ACC_002093               <NA>         CON_002261 Finance / Procurement                 Manager          76     70-84 Strong fit         1        domain_inferred                        0.845                              1                manual_review          manual_review_required            manual_review       REP_AMER_MM_02               AMER_MM                    163 2024-06-11 02:32:00                     152            1-4 hours                      1                     1                     1                         0                   <NA>             converted_contact_account                    <NA>                  78              good
+LEAD_000004 2024-11-19       2024-11         2024-Q4   v2_domain_inference         Content Download   AMER North America United States Enterprise         Technology                   noah.rhodes@miller738.com                 miller738.com         duplicate_email               email_name                   1                      0                   0                 0                        <NA>             <NA>            <NA> duplicate_existing_lead_contact         ACC_001436          ACC_001436               <NA>               <NA>      IT / Engineering                Director          25        25-49 Low fit         0   duplicate_suppressed                        0.849                              3 suppressed_duplicate_invalid       duplicate_or_invalid_lead                     <NA>                 <NA>                  <NA>                   <NA>                 NaT                    <NA>             No touch                      0                     0                     0                         0                   <NA>                         not_converted duplicate_or_suppressed                  14              poor
+LEAD_000005 2024-08-27       2024-08         2024-Q3   v2_domain_inference Free Trial / Free Sample    APJ         India         India Commercial      Manufacturing kevin.pacheco@brightfieldtechnologies314.in brightfieldtechnologies314.in   business_known_domain               email_only                   0                      0                   0                 0     Brightfieldtechnologies            India             APJ          existing_account_match         ACC_001758          ACC_001758               <NA>               <NA>       Sales / Revenue  Individual Contributor          71     70-84 Strong fit         1        domain_inferred                        0.910                              2      routed_after_enrichment                            <NA> domain_country_inference     REP_SDR_INDIA_01                 INDIA                     10 2024-08-27 14:17:00                     857             Same day                      1                     0                     0                         0                   <NA>                         not_converted             routed_late                  81              good
+LEAD_000006 2024-09-18       2024-09         2024-Q3   v2_domain_inference             Demo Request    APJ   Japan/Korea         Japan Commercial         Technology        robert.wolfe@ironwoodenergy665.co.jp       ironwoodenergy665.co.jp   business_known_domain               email_name                   1                      0                   0                 0              Ironwoodenergy            Japan             APJ          existing_account_match         ACC_001088          ACC_001088               <NA>         CON_000486               Unknown            VP / Head of          82     70-84 Strong fit         1        domain_inferred                        0.837                              1      routed_after_enrichment                            <NA> domain_country_inference          REP_JPKR_02           JAPAN_KOREA                      8 2024-09-18 00:28:00                      28        16-60 minutes                      1                     1                     1                         1             OPP_000501 converted_contact_account_opportunity                    <NA>                  85              good
+LEAD_000007 2024-04-02       2024-04         2024-Q2           v1_baseline         Partner Referral   AMER         LATAM        Brazil Commercial          Education  christopher.bernard@vectorindustries179.br        vectorindustries179.br   business_known_domain            email_company                   0                      1                   0                 0       Vector Industries 179           Brazil            AMER          existing_account_match         ACC_001512          ACC_001512               <NA>         CON_000436 Security / Compliance                 Manager          96 85-100 Excellent fit         1        domain_inferred                        0.837                              2      routed_after_enrichment                            <NA> domain_country_inference         REP_LATAM_01                 LATAM                      3 2024-04-02 00:21:00                      21        16-60 minutes                      1                     1                     1                         1             OPP_000521 converted_contact_account_opportunity                    <NA>                  88              good
+LEAD_000008 2025-05-23       2025-05         2025-Q2          v3_logic_fix                  Webinar   AMER         LATAM        Brazil Commercial      Public Sector         brandon.davis@stonebridgelabs997.br         stonebridgelabs997.br   business_known_domain             full_profile                   1                      1                   1                 1        Stonebridge Labs 997           Brazil            AMER          existing_account_match         ACC_000888          ACC_000888               <NA>         CON_002418             Marketing Consultant / Contractor          64   50-69 Moderate fit         1               complete                        0.976                              0          routed_successfully                            <NA>              direct_rule         REP_LATAM_01                 LATAM                      5 2025-05-23 00:01:00                       1         0-15 minutes                      1                     1                     1                         0                   <NA>             converted_contact_account                    <NA>                 100         excellent
+LEAD_000009 2025-02-14       2025-02         2025-Q1          v3_logic_fix             Demo Request   AMER North America United States Commercial             Energy   lindsey.roman@crescenttechnologies135.com   crescenttechnologies135.com   business_known_domain email_name_company_title                   1                      1                   1                 0   Crescent Technologies 135    United States            AMER           new_account_candidate               <NA>                <NA>         ACC_000232         CON_000607        Product / Data     Executive / C-level          95 85-100 Excellent fit         1 partial_low_confidence                        0.615                              0      routed_after_enrichment                            <NA> domain_country_inference     REP_AMER_COMM_01             AMER_COMM                      1 2025-02-14 00:03:00                       3         0-15 minutes                      1                     1                     1                         1             OPP_000274 converted_contact_account_opportunity                    <NA>                  81              good
+LEAD_000010 2025-01-01       2025-01         2025-Q1          v3_logic_fix         Content Download   AMER North America United States Commercial         Healthcare                 kimberly.dudley@hotmail.com                   hotmail.com          personal_email               email_only                   0                      0                   0                 0                        <NA>             <NA>            <NA>                no_account_match               <NA>                <NA>               <NA>               <NA>            Operations     Executive / C-level          42        25-49 Low fit         0  failed_personal_email                        0.306                              4               fallback_queue personal_email_no_company_match           fallback_queue REP_SDR_AMER_COMM_01             AMER_COMM                   1108 2025-01-03 19:10:00                    4030             1-3 days                      1                     0                     0                         0                   <NA>                         not_converted             routed_late                  33              poor
+
+Saved leads to: data/processed/fact_leads.csv

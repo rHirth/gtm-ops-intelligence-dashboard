@@ -1,0 +1,21 @@
+US territories:
+    AMER_ENT
+    AMER_MM
+    AMER_COMM
+
+    All seller reps are Account Executives.
+    The territory itself determines Enterprise / Mid-Market / Commercial coverage.
+
+LATAM, EMEA, APJ territories:
+    First seller rep in each territory is an Enterprise Account Executive.
+    Remaining seller reps are Account Executives.
+    This lets Enterprise accounts route to EAEs while Mid-Market and Commercial accounts route to AEs.
+
+Every territory:
+    1 SDR
+    1 Regional VP
+
+Every major region:
+    1 Area VP for AMER
+    1 Area VP for EMEA
+    1 Area VP for APJ
