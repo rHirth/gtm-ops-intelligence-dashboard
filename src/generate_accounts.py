@@ -445,18 +445,22 @@ def generate_account_name(rng: np.random.Generator) -> str:
 
 
 def generate_unique_account_names(n: int, rng: np.random.Generator) -> list[str]:
-    names = set()
+    """Generate unique fake account names in deterministic insertion order."""
+    names = []
+    seen_names = set()
 
     while len(names) < n:
         name = generate_account_name(rng)
 
-        if name in names:
+        if name in seen_names:
             suffix = int(rng.integers(100, 999))
             name = f"{name} {suffix}"
 
-        names.add(name)
+        if name not in seen_names:
+            seen_names.add(name)
+            names.append(name)
 
-    return list(names)
+    return names
 
 
 def slugify_company_name(name: str) -> str:
