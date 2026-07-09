@@ -1,0 +1,84 @@
+rep_id,rep_name,region,territory_id,team,role,active_flag,capacity_score
+REP_AMER_ENT_01,Allison Hill,AMER,AMER_ENT,US Enterprise,Account Executive,1,79.7
+REP_AMER_ENT_02,Noah Rhodes,AMER,AMER_ENT,US Enterprise,Account Executive,1,85.0
+REP_AMER_ENT_03,Angie Henderson,AMER,AMER_ENT,US Enterprise,Account Executive,1,52.6
+REP_AMER_ENT_04,Daniel Wagner,AMER,AMER_ENT,US Enterprise,Account Executive,1,77.5
+REP_AMER_ENT_05,Cristian Santos,AMER,AMER_ENT,US Enterprise,Account Executive,1,75.8
+REP_AMER_ENT_06,Connie Lawrence,AMER,AMER_ENT,US Enterprise,Account Executive,1,86.6
+REP_AMER_ENT_07,Abigail Shaffer,AMER,AMER_ENT,US Enterprise,Account Executive,1,76.8
+REP_AMER_ENT_08,Gina Moore,AMER,AMER_ENT,US Enterprise,Account Executive,1,81.6
+REP_SDR_AMER_ENT_01,Gabrielle Davis,AMER,AMER_ENT,US Enterprise,Sales Development Representative,1,109.2
+REP_RVP_AMER_ENT,Ryan Munoz,AMER,AMER_ENT,US Enterprise,Regional VP,1,63.4
+REP_AMER_MM_01,Monica Herrera,AMER,AMER_MM,US Mid-Market,Account Executive,1,73.8
+REP_AMER_MM_02,Jamie Arnold,AMER,AMER_MM,US Mid-Market,Account Executive,1,90.7
+REP_AMER_MM_03,Lisa Hensley,AMER,AMER_MM,US Mid-Market,Account Executive,1,70.9
+REP_AMER_MM_04,Michele Williams,AMER,AMER_MM,US Mid-Market,Account Executive,1,96.4
+REP_AMER_MM_05,Dylan Miller,AMER,AMER_MM,US Mid-Market,Account Executive,1,81.2
+REP_AMER_MM_06,Brian Ramirez,AMER,AMER_MM,US Mid-Market,Account Executive,1,71.1
+REP_AMER_MM_07,Holly Wood,AMER,AMER_MM,US Mid-Market,Account Executive,1,66.2
+REP_AMER_MM_08,Derek Zuniga,AMER,AMER_MM,US Mid-Market,Account Executive,1,107.7
+REP_SDR_AMER_MM_01,Lisa Jackson,AMER,AMER_MM,US Mid-Market,Sales Development Representative,1,72.1
+REP_RVP_AMER_MM,Carla Gray,AMER,AMER_MM,US Mid-Market,Regional VP,1,72.9
+REP_AMER_COMM_01,Margaret Hawkins DDS,AMER,AMER_COMM,US Commercial,Account Executive,1,82.5
+REP_AMER_COMM_02,Patty Perez,AMER,AMER_COMM,US Commercial,Account Executive,1,78.8
+REP_AMER_COMM_03,Ethan Adams,AMER,AMER_COMM,US Commercial,Account Executive,1,78.6
+REP_AMER_COMM_04,Tommy Walter,AMER,AMER_COMM,US Commercial,Account Executive,1,78.7
+REP_AMER_COMM_05,Matthew Foster,AMER,AMER_COMM,US Commercial,Account Executive,1,76.8
+REP_AMER_COMM_06,Judy Baker,AMER,AMER_COMM,US Commercial,Account Executive,1,83.6
+REP_AMER_COMM_07,Justin Baker,AMER,AMER_COMM,US Commercial,Account Executive,1,72.2
+REP_AMER_COMM_08,Stephanie Ross,AMER,AMER_COMM,US Commercial,Account Executive,1,81.8
+REP_SDR_AMER_COMM_01,Zachary Hicks,AMER,AMER_COMM,US Commercial,Sales Development Representative,1,71.6
+REP_RVP_AMER_COMM,Anthony Rodriguez,AMER,AMER_COMM,US Commercial,Regional VP,1,43.8
+REP_LATAM_01,Rebecca Henderson,AMER,LATAM,LATAM,Enterprise Account Executive,1,68.0
+REP_LATAM_02,James Ferrell,AMER,LATAM,LATAM,Account Executive,1,83.0
+REP_LATAM_03,Tricia Valencia,AMER,LATAM,LATAM,Account Executive,1,103.2
+REP_SDR_LATAM_01,Nathan Maldonado,AMER,LATAM,LATAM,Sales Development Representative,1,92.3
+REP_RVP_LATAM,Debra Davidson,AMER,LATAM,LATAM,Regional VP,1,48.7
+REP_UKI_01,Jeffrey Chavez,EMEA,UKI,EMEA UKI,Enterprise Account Executive,1,74.1
+REP_UKI_02,Sherri Baker,EMEA,UKI,EMEA UKI,Account Executive,1,77.7
+REP_UKI_03,Cassandra Gaines,EMEA,UKI,EMEA UKI,Account Executive,1,70.9
+REP_SDR_UKI_01,Elizabeth Fowler,EMEA,UKI,EMEA UKI,Sales Development Representative,1,89.5
+REP_RVP_UKI,Brittany Farmer,EMEA,UKI,EMEA UKI,Regional VP,1,69.5
+REP_DACH_01,Paula Moreno,EMEA,DACH,EMEA DACH,Enterprise Account Executive,1,77.2
+REP_DACH_02,Fred Smith,EMEA,DACH,EMEA DACH,Account Executive,1,61.6
+REP_DACH_03,Sherry Decker,EMEA,DACH,EMEA DACH,Account Executive,1,70.4
+REP_SDR_DACH_01,Anthony Humphrey,EMEA,DACH,EMEA DACH,Sales Development Representative,1,87.8
+REP_RVP_DACH,Angelica Tucker,EMEA,DACH,EMEA DACH,Regional VP,1,72.0
+REP_FRBNLX_01,Philip Cannon,EMEA,FR_BENELUX,EMEA France/Benelux,Enterprise Account Executive,1,70.8
+REP_FRBNLX_02,John Pierce,EMEA,FR_BENELUX,EMEA France/Benelux,Account Executive,1,75.0
+REP_FRBNLX_03,Shane Henderson,EMEA,FR_BENELUX,EMEA France/Benelux,Account Executive,1,83.1
+REP_SDR_FR_BENELUX_01,Joshua Blair,EMEA,FR_BENELUX,EMEA France/Benelux,Sales Development Representative,1,86.8
+REP_RVP_FR_BENELUX,Eric Carney,EMEA,FR_BENELUX,EMEA France/Benelux,Regional VP,1,59.5
+REP_NORDICS_01,Jessica Holmes,EMEA,NORDICS,EMEA Nordics,Enterprise Account Executive,1,87.6
+REP_NORDICS_02,Danny Morgan,EMEA,NORDICS,EMEA Nordics,Account Executive,1,84.9
+REP_SDR_NORDICS_01,Crystal Robinson,EMEA,NORDICS,EMEA Nordics,Sales Development Representative,1,103.3
+REP_RVP_NORDICS,Mark Perez,EMEA,NORDICS,EMEA Nordics,Regional VP,1,74.1
+REP_SEU_01,Shannon Jones,EMEA,SOUTHERN_EUROPE,EMEA Southern Europe,Enterprise Account Executive,1,51.3
+REP_SEU_02,Michael Lewis,EMEA,SOUTHERN_EUROPE,EMEA Southern Europe,Account Executive,1,78.9
+REP_SDR_SOUTHERN_EUROPE_01,Timothy Duncan,EMEA,SOUTHERN_EUROPE,EMEA Southern Europe,Sales Development Representative,1,64.6
+REP_RVP_SOUTHERN_EUROPE,Richard Aguirre,EMEA,SOUTHERN_EUROPE,EMEA Southern Europe,Regional VP,1,57.6
+REP_MEA_01,Brent Jordan,EMEA,MEA,EMEA Middle East/Africa,Enterprise Account Executive,1,74.8
+REP_MEA_02,John Daniel,EMEA,MEA,EMEA Middle East/Africa,Account Executive,1,95.2
+REP_SDR_MEA_01,Victoria Garcia,EMEA,MEA,EMEA Middle East/Africa,Sales Development Representative,1,69.7
+REP_RVP_MEA,Gerald Hensley,EMEA,MEA,EMEA Middle East/Africa,Regional VP,1,66.6
+REP_INDIA_01,Connor West,APJ,INDIA,APJ India,Enterprise Account Executive,1,88.3
+REP_INDIA_02,Donald Wright,APJ,INDIA,APJ India,Account Executive,1,99.9
+REP_INDIA_03,Jessica Callahan,APJ,INDIA,APJ India,Account Executive,1,68.3
+REP_SDR_INDIA_01,Amber Kidd,APJ,INDIA,APJ India,Sales Development Representative,1,77.3
+REP_RVP_INDIA,Tracy House,APJ,INDIA,APJ India,Regional VP,1,71.6
+REP_JPKR_01,Carol Tucker,APJ,JAPAN_KOREA,APJ Japan/Korea,Enterprise Account Executive,1,69.3
+REP_JPKR_02,James Brown,APJ,JAPAN_KOREA,APJ Japan/Korea,Account Executive,1,63.8
+REP_JPKR_03,William Baker,APJ,JAPAN_KOREA,APJ Japan/Korea,Account Executive,1,86.1
+REP_SDR_JAPAN_KOREA_01,Jordan Henderson,APJ,JAPAN_KOREA,APJ Japan/Korea,Sales Development Representative,1,115.0
+REP_RVP_JAPAN_KOREA,Whitney Peters,APJ,JAPAN_KOREA,APJ Japan/Korea,Regional VP,1,52.1
+REP_ANZ_01,Brittney Phillips,APJ,ANZ,APJ ANZ,Enterprise Account Executive,1,46.4
+REP_ANZ_02,Lauren Daniels,APJ,ANZ,APJ ANZ,Account Executive,1,66.2
+REP_SDR_ANZ_01,Amy Silva,APJ,ANZ,APJ ANZ,Sales Development Representative,1,97.4
+REP_RVP_ANZ,Sarah Moore,APJ,ANZ,APJ ANZ,Regional VP,1,65.9
+REP_SEA_01,Angela Lopez,APJ,SEA,APJ Southeast Asia,Enterprise Account Executive,1,70.1
+REP_SEA_02,Megan Young,APJ,SEA,APJ Southeast Asia,Account Executive,1,55.9
+REP_SDR_SEA_01,Steve Sanchez,APJ,SEA,APJ Southeast Asia,Sales Development Representative,1,81.4
+REP_RVP_SEA,Lisa Barnes,APJ,SEA,APJ Southeast Asia,Regional VP,1,65.6
+REP_AVP_AMER,Kelly Donovan,AMER,AMER_ALL,AMER Area Leadership,Area VP,1,69.8
+REP_AVP_EMEA,Mike Allen,EMEA,EMEA_ALL,EMEA Area Leadership,Area VP,1,52.0
+REP_AVP_APJ,Michael Evans,APJ,APJ_ALL,APJ Area Leadership,Area VP,1,43.8

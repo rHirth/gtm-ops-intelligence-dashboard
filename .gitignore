@@ -17,7 +17,6 @@ env/
 Thumbs.db
 
 # Large/generated local outputs
-data/processed/
 *.db
 *.sqlite
 *.sqlite3
