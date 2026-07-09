@@ -1,0 +1,88 @@
+Loaded sales reps from: data/processed/dim_sales_reps.csv
+Loaded sales reps from: data/processed/dim_sales_reps.csv
+Total accounts: 2250
+
+Region counts:
+region
+AMER    1108
+EMEA     610
+APJ      407
+<NA>     125
+Name: count, dtype: int64
+
+Segment counts:
+segment
+Commercial    1063
+Mid-Market     745
+Enterprise     317
+<NA>           125
+Name: count, dtype: int64
+
+Account source counts:
+account_created_source
+seed_existing                  1800
+created_from_converted_lead     450
+Name: count, dtype: int64
+
+Account issue type counts:
+account_issue_type
+clean                             1825
+domain_problem_only                125
+intl_no_rep_missing_country        125
+us_no_rep_missing_segmentation     125
+inactive_owner_only                 50
+Name: count, dtype: int64
+
+DQ root cause counts:
+account_dq_root_cause
+none                                                                 1825
+domain_quality_issue_affects_lead_to_account_matching                 125
+missing_country_prevented_region_and_territory_assignment             125
+missing_employee_count_and_segment_prevented_territory_assignment     125
+assigned_owner_inactive_after_territory_assignment                     50
+Name: count, dtype: int64
+
+Data quality score counts:
+data_quality_score
+45      250
+80      100
+85       10
+90       40
+95       25
+100    1825
+Name: count, dtype: int64
+
+Data quality tier counts:
+data_quality_tier
+excellent    1825
+poor          250
+partial       100
+good           75
+Name: count, dtype: int64
+
+Domain quality counts:
+domain_quality
+valid_business_domain      2125
+missing_domain               50
+duplicate_domain             40
+ambiguous_global_domain      25
+suspicious_domain            10
+Name: count, dtype: int64
+
+Missing field rates:
+account_domain              0.022
+country                     0.056
+region                      0.056
+segment                     0.056
+territory_id                0.111
+owner_rep_id                0.133
+estimated_employee_count    0.056
+dtype: float64
+
+Duplicate non-null domain count:
+39
+
+Account-owner FK validation:
+Passed: every non-null owner_rep_id exists in dim_sales_reps and matches territory.
+
+Saved accounts to: data/processed/dim_accounts.csv

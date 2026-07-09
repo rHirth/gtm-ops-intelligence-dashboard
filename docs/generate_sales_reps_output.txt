@@ -1,0 +1,87 @@
+No account CSV found. Using fallback sales territory structure.
+No account CSV found. Using fallback sales territory structure.
+Validation passed: dim_sales_reps is valid.
+
+Total sales rep rows: 83
+
+Role counts:
+role
+Account Executive                   41
+Sales Development Representative    14
+Regional VP                         14
+Enterprise Account Executive        11
+Area VP                              3
+
+Region counts:
+region
+AMER    36
+APJ     19
+EMEA    28
+
+Seller role counts by territory:
+role             Account Executive  Enterprise Account Executive
+territory_id                                                    
+AMER_COMM                        8                             0
+AMER_ENT                         8                             0
+AMER_MM                          8                             0
+ANZ                              1                             1
+DACH                             2                             1
+FR_BENELUX                       2                             1
+INDIA                            2                             1
+JAPAN_KOREA                      2                             1
+LATAM                            2                             1
+MEA                              1                             1
+NORDICS                          1                             1
+SEA                              1                             1
+SOUTHERN_EUROPE                  1                             1
+UKI                              2                             1
+
+Leadership coverage:
+                 rep_id          rep_name region    territory_id                    team        role
+       REP_RVP_AMER_ENT        Ryan Munoz   AMER        AMER_ENT           US Enterprise Regional VP
+        REP_RVP_AMER_MM        Carla Gray   AMER         AMER_MM           US Mid-Market Regional VP
+      REP_RVP_AMER_COMM Anthony Rodriguez   AMER       AMER_COMM           US Commercial Regional VP
+          REP_RVP_LATAM    Debra Davidson   AMER           LATAM                   LATAM Regional VP
+            REP_RVP_UKI   Brittany Farmer   EMEA             UKI                EMEA UKI Regional VP
+           REP_RVP_DACH   Angelica Tucker   EMEA            DACH               EMEA DACH Regional VP
+     REP_RVP_FR_BENELUX       Eric Carney   EMEA      FR_BENELUX     EMEA France/Benelux Regional VP
+        REP_RVP_NORDICS        Mark Perez   EMEA         NORDICS            EMEA Nordics Regional VP
+REP_RVP_SOUTHERN_EUROPE   Richard Aguirre   EMEA SOUTHERN_EUROPE    EMEA Southern Europe Regional VP
+            REP_RVP_MEA    Gerald Hensley   EMEA             MEA EMEA Middle East/Africa Regional VP
+          REP_RVP_INDIA       Tracy House    APJ           INDIA               APJ India Regional VP
+    REP_RVP_JAPAN_KOREA    Whitney Peters    APJ     JAPAN_KOREA         APJ Japan/Korea Regional VP
+            REP_RVP_ANZ       Sarah Moore    APJ             ANZ                 APJ ANZ Regional VP
+            REP_RVP_SEA       Lisa Barnes    APJ             SEA      APJ Southeast Asia Regional VP
+           REP_AVP_AMER     Kelly Donovan   AMER        AMER_ALL    AMER Area Leadership     Area VP
+           REP_AVP_EMEA        Mike Allen   EMEA        EMEA_ALL    EMEA Area Leadership     Area VP
+            REP_AVP_APJ     Michael Evans    APJ         APJ_ALL     APJ Area Leadership     Area VP
+
+Top 10 highest capacity scores:
+                rep_id         rep_name region territory_id                    team                             role  active_flag  capacity_score
+REP_SDR_JAPAN_KOREA_01 Jordan Henderson    APJ  JAPAN_KOREA         APJ Japan/Korea Sales Development Representative            1           115.0
+   REP_SDR_AMER_ENT_01  Gabrielle Davis   AMER     AMER_ENT           US Enterprise Sales Development Representative            1           109.2
+        REP_AMER_MM_08     Derek Zuniga   AMER      AMER_MM           US Mid-Market                Account Executive            1           107.7
+    REP_SDR_NORDICS_01 Crystal Robinson   EMEA      NORDICS            EMEA Nordics Sales Development Representative            1           103.3
+          REP_LATAM_03  Tricia Valencia   AMER        LATAM                   LATAM                Account Executive            1           103.2
+          REP_INDIA_02    Donald Wright    APJ        INDIA               APJ India                Account Executive            1            99.9
+        REP_SDR_ANZ_01        Amy Silva    APJ          ANZ                 APJ ANZ Sales Development Representative            1            97.4
+        REP_AMER_MM_04 Michele Williams   AMER      AMER_MM           US Mid-Market                Account Executive            1            96.4
+            REP_MEA_02      John Daniel   EMEA          MEA EMEA Middle East/Africa                Account Executive            1            95.2
+      REP_SDR_LATAM_01 Nathan Maldonado   AMER        LATAM                   LATAM Sales Development Representative            1            92.3
+
+Preview:
+             rep_id        rep_name region territory_id          team                             role  active_flag  capacity_score
+    REP_AMER_ENT_01    Allison Hill   AMER     AMER_ENT US Enterprise                Account Executive            1            79.7
+    REP_AMER_ENT_02     Noah Rhodes   AMER     AMER_ENT US Enterprise                Account Executive            1            85.0
+    REP_AMER_ENT_03 Angie Henderson   AMER     AMER_ENT US Enterprise                Account Executive            1            52.6
+    REP_AMER_ENT_04   Daniel Wagner   AMER     AMER_ENT US Enterprise                Account Executive            1            77.5
+    REP_AMER_ENT_05 Cristian Santos   AMER     AMER_ENT US Enterprise                Account Executive            1            75.8
+    REP_AMER_ENT_06 Connie Lawrence   AMER     AMER_ENT US Enterprise                Account Executive            1            86.6
+    REP_AMER_ENT_07 Abigail Shaffer   AMER     AMER_ENT US Enterprise                Account Executive            1            76.8
+    REP_AMER_ENT_08      Gina Moore   AMER     AMER_ENT US Enterprise                Account Executive            1            81.6
+REP_SDR_AMER_ENT_01 Gabrielle Davis   AMER     AMER_ENT US Enterprise Sales Development Representative            1           109.2
+   REP_RVP_AMER_ENT      Ryan Munoz   AMER     AMER_ENT US Enterprise                      Regional VP            1            63.4
+     REP_AMER_MM_01  Monica Herrera   AMER      AMER_MM US Mid-Market                Account Executive            1            73.8
+     REP_AMER_MM_02    Jamie Arnold   AMER      AMER_MM US Mid-Market                Account Executive            1            90.7
+
+Saved sales reps to: data/processed/dim_sales_reps.csv
