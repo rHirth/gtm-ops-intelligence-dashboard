@@ -1,4 +1,0 @@
-routing_model,routed_success_count,routed_success_rate,manual_review_count,fallback_queue_count,failed_routing_count,suppressed_duplicate_invalid_count
-v1_baseline,6203,0.517,1930,1155,2022,690
-v2_domain_inference,9336,0.778,750,312,912,690
-v3_logic_fix,9768,0.814,578,198,766,690
