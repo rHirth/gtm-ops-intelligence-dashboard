@@ -1265,7 +1265,7 @@ def build_leads(seed: int = SEED) -> pd.DataFrame:
     new_account_candidates = leads.index[
         converted_mask
         & (leads["account_match_status"] == "new_account_candidate")
-    ].to_numpy()
+    ].to_numpy().copy()
     rng.shuffle(new_account_candidates)
     created_account_count = min(len(created_account_pool), len(new_account_candidates))
     created_account_indices = new_account_candidates[:created_account_count]
