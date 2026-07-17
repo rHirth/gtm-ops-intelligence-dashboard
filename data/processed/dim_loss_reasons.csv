@@ -1,0 +1,14 @@
+loss_reason_id,loss_reason,loss_reason_category,controllable_flag
+LR_NO_BUDGET,No budget,Commercial,0
+LR_NO_DECISION,No decision,Timing,0
+LR_COMPETITOR_SELECTED,Competitor selected,Competitive,0
+LR_POOR_FIT,Poor fit,Qualification,1
+LR_TIMING,Timing,Timing,0
+LR_UNRESPONSIVE,Unresponsive,Operational,1
+LR_PRICE,Price,Commercial,0
+LR_MISSING_DECISION_MAKER,Missing decision maker,Operational,1
+LR_DUPLICATE_BAD_DATA,Duplicate / bad data,Data Quality,1
+LR_SLOW_FOLLOW_UP,Slow follow-up,Operational,1
+LR_TERRITORY_CONFUSION,Territory ownership confusion,Operational,1
+LR_TECHNICAL_MISMATCH,Technical requirements mismatch,Product Fit,0
+LR_PROCUREMENT_LEGAL_DELAY,Procurement/legal delay,Timing,0
