@@ -6,6 +6,7 @@ import pandas as pd
 
 DATA_DIR = Path("data/processed")
 DB_PATH = DATA_DIR / "gtm_ops.db"
+VIEWS_SQL_PATH = Path("sql/create_views.sql")
 
 TABLE_FILES = {
     "dim_sales_reps": DATA_DIR / "dim_sales_reps.csv",
@@ -17,6 +18,35 @@ TABLE_FILES = {
     "fact_tickets": DATA_DIR / "fact_tickets.csv",
 }
 
+
+def create_views(conn: sqlite3.Connection) -> None:
+    """Create dashboard-ready SQLite views."""
+    if not VIEWS_SQL_PATH.exists():
+        raise FileNotFoundError(f"Missing views SQL file: {VIEWS_SQL_PATH}")
+
+    views_sql = VIEWS_SQL_PATH.read_text(encoding="utf-8")
+    conn.executescript(views_sql)
+    conn.commit()
+
+    print("\nViews created.")
+
+def print_views(conn: sqlite3.Connection) -> None:
+    """Print views currently available in the SQLite database."""
+    query = """
+        SELECT name
+        FROM sqlite_master
+        WHERE type = 'view'
+        ORDER BY name;
+    """
+
+    views = pd.read_sql_query(query, conn)
+
+    print("\nSQLite views:")
+    if views.empty:
+        print("No views found.")
+    else:
+        for view_name in views["name"]:
+            print(view_name)
 
 def load_csv_to_sqlite(conn: sqlite3.Connection, table_name: str, csv_path: Path) -> None:
     """Load one CSV file into a SQLite table."""
@@ -135,7 +165,10 @@ def main() -> None:
             load_csv_to_sqlite(conn, table_name, csv_path)
 
         create_indexes(conn)
+        create_views(conn)
+
         print_row_counts(conn)
+        print_views(conn)
         run_validation_queries(conn)
 
     print(f"\nSaved SQLite database to: {DB_PATH}")
